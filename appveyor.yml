@@ -45,7 +45,7 @@ install: |
   if NOT EXIST C:\CUDA\v%CUDA_VER% (if "%CUDA_VER%" == "9.1" rename C:\CUDA\nvcc v%CUDA_VER%)
   if NOT EXIST C:\CUDA\v%CUDA_VER% (if "%CUDA_VER%" == "8.0" rename C:\CUDA\compiler v%CUDA_VER%)
 
-  et PATH=C:\Python36-x64;C:\Python36-x64\Scripts;%PATH%;C:\CUDA\v%CUDA_VER%\bin
+  set PATH=C:\Python36-x64;C:\Python36-x64\Scripts;%PATH%;C:\CUDA\v%CUDA_VER%\bin
   pip install requests gitpython
   nvcc -V
 
