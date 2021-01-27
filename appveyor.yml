@@ -35,10 +35,15 @@ install: |
   if NOT EXIST C:\CUDA\v%CUDA_VER% (if "%CUDA_VER%" == "9.1" curl -L https://developer.nvidia.com/compute/cuda/%CUDA_VER%/Prod/local_installers/%CUDA_ARCHIVE% -o %CUDA_ARCHIVE%.exe)
   if NOT EXIST C:\CUDA\v%CUDA_VER% (if "%CUDA_VER%" == "8.0" curl -L https://developer.nvidia.com/compute/cuda/8.0/Prod2/local_installers/cuda_8.0.61_windows-exe -o %CUDA_ARCHIVE%.exe)
   if NOT EXIST C:\CUDA mkdir C:\CUDA
-  if NOT EXIST C:\CUDA\v%CUDA_VER% (if "%CUDA_VER%" == "11.2" 7z x %CUDA_ARCHIVE%.exe -oC:\CUDA cuda_nvcc/nvcc/* cuda_nvrtc/nvrtc*/*)
+  if NOT EXIST C:\CUDA\v%CUDA_VER% (if "%CUDA_VER%" == "11.2" 7z x %CUDA_ARCHIVE%.exe -oC:\CUDA cuda_nvcc/nvcc/* cuda_nvrtc/nvrtc*/* cuda_cudart/cudart/*)
   if NOT EXIST C:\CUDA\v%CUDA_VER% (if "%CUDA_VER%" == "10.0" 7z x %CUDA_ARCHIVE%.exe -oC:\CUDA nvcc/* nvrtc*/*)
   if NOT EXIST C:\CUDA\v%CUDA_VER% (if "%CUDA_VER%" == "9.1" 7z x %CUDA_ARCHIVE%.exe -oC:\CUDA nvcc/* nvrtc*/*)
   if NOT EXIST C:\CUDA\v%CUDA_VER% (if "%CUDA_VER%" == "8.0" 7z x %CUDA_ARCHIVE%.exe -oC:\CUDA compiler/* nvrtc*/*)
+  if NOT EXIST C:\CUDA\v%CUDA_VER% (if "%CUDA_VER%" == "11.2" mkdir C:\CUDA)
+  if "%CUDA_VER%" == "11.2" robocopy /e /mt /move c:\CUDA\cuda_cudart\cudart c:\CUDA\v%CUDA_VER%
+  if "%CUDA_VER%" == "11.2" robocopy /e /mt /move c:\CUDA\cuda_nvcc\nvcc c:\CUDA\v%CUDA_VER%
+  if "%CUDA_VER%" == "11.2" robocopy /e /mt /move c:\CUDA\cuda_nvrtc\nvrtc c:\CUDA\v%CUDA_VER%
+  if "%CUDA_VER%" == "11.2" robocopy /e /mt /move c:\CUDA\cuda_nvrtc\nvrtc_dev c:\CUDA\v%CUDA_VER%
   if NOT EXIST C:\CUDA\v%CUDA_VER% (if "%CUDA_VER%" == "11.2" move C:\CUDA\cuda_nvcc\nvcc C:\CUDA\v%CUDA_VER%)
   if NOT EXIST C:\CUDA\v%CUDA_VER% (if "%CUDA_VER%" == "11.2" move C:\CUDA\cuda_nvrtc\nvrtc C:\CUDA\nvrtc)
   if NOT EXIST C:\CUDA\v%CUDA_VER% (if "%CUDA_VER%" == "11.2" move C:\CUDA\cuda_nvrtc\nvrtc_dev C:\CUDA\nvrtc_dev)
